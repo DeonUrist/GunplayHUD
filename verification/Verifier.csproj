@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <LangVersion>latest</LangVersion>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <OutputPath>../.verification/bin/</OutputPath>
+    <GameDir Condition="'$(GameDir)' == ''">$(APOCALYPTER_GAME_DIR)</GameDir>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../src/HeadshotSoundGate.cs" Link="HeadshotSoundGate.cs" />
+    <Compile Include="../src/CrosshairMigration.cs" Link="CrosshairMigration.cs" />
+    <Reference Include="BepInEx"><HintPath>$(GameDir)/BepInEx/core/BepInEx.dll</HintPath><Private>false</Private></Reference>
+  </ItemGroup>
+</Project>
