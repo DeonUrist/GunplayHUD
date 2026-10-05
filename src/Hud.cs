@@ -79,7 +79,7 @@ namespace GunplayHUD
                 if (mode == 2) _floaters.Add(new Floater { Point = p.Point, Text = text, Head = p.Head, Part = p.Part, Born = now });
                 else if (mode == 1)
                 {
-                    string name = p.Target != null ? p.Target.transform.root.name : "?";
+                    string name = p.Target == null ? "?" : p.Part ? p.Target.transform.root.name : p.Target.name;   // (1.2.1) a creature: its own name (Apocapatrol crews sit under the car)
                     int cut = name.IndexOf('(');
                     if (cut > 0) name = name.Substring(0, cut);
                     _lines.Add(new Line { Text = "-" + text + "  " + name, Head = p.Head, Part = p.Part, Born = now });

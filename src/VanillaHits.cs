@@ -38,12 +38,17 @@ namespace GunplayHUD
                 if (target == null) return;
 
                 GameObject valueOwner;
-                FsmFloat value = Condition(target.transform, out valueOwner);
-                bool part = value != null;
-                if (!part)
+                FsmFloat value = CreatureHealth(target.transform, out valueOwner);   // (1.2.1) a creature riding in a car is not the car
+                bool part = false;
+                if (value == null)
                 {
-                    valueOwner = target.transform.root.gameObject;
-                    value = Health(valueOwner);
+                    value = Condition(target.transform, out valueOwner);
+                    part = value != null;
+                    if (!part)
+                    {
+                        valueOwner = target.transform.root.gameObject;
+                        value = Health(valueOwner);
+                    }
                 }
                 // Ragdolls and scenery have no creature Health: no marker or number.
                 if (value == null) return;
@@ -69,6 +74,22 @@ namespace GunplayHUD
                         var value = fsm.FsmVariables.FindFsmFloat("Condition");
                         if (value != null) { owner = t.gameObject; return value; }
                     }
+            owner = null; return null;
+        }
+        // the nearest Health FSM on the way up from the hit object, never past a vehicle part or a car root (Apocapatrol seats its crews
+        // under the car, so transform.root of a driver is the car)
+        private static FsmFloat CreatureHealth(Transform target, out GameObject owner)
+        {
+            for (var t = target; t != null; t = t.parent)
+            {
+                if (t.CompareTag("vehPart") || t.CompareTag("vehPartRemoved") || t.GetComponent("VehicleController") != null) break;
+                foreach (var fsm in t.GetComponents<PlayMakerFSM>())
+                    if (fsm.FsmName == "Health")
+                    {
+                        var value = fsm.FsmVariables.FindFsmFloat("Health");
+                        if (value != null) { owner = t.gameObject; return value; }
+                    }
+            }
             owner = null; return null;
         }
         private static FsmFloat Health(GameObject root)
