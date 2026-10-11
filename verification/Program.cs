@@ -58,7 +58,7 @@ internal static class Program
         var api = assembly.GetType("GunplayHUD.Api", true);
         Check(api.GetMethod("PlayerHit").GetParameters().Length == 4 && api.GetMethod("PartHit").GetParameters().Length == 3, "Optional API preserved");
         var metadata = assembly.GetType("GunplayHUD.Plugin", true).GetCustomAttributesData().Single(x => x.AttributeType.FullName == "BepInEx.BepInPlugin");
-        Check((string)metadata.ConstructorArguments[2].Value == "1.2.0", "Release metadata");
+        Check((string)metadata.ConstructorArguments[2].Value == "1.2.2", "Release metadata");
     }
     private static void Migration(string root, string name, string source, bool existing, int expected, bool dotExpected)
     {

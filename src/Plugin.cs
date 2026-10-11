@@ -12,7 +12,7 @@ namespace GunplayHUD
     [BepInPlugin(GUID, NAME, VERSION)]
     public sealed class Plugin : BaseUnityPlugin
     {
-        public const string GUID = "com.denis.apocalypter.gunplayhud", NAME = "Gunplay HUD", VERSION = "1.2.1";
+        public const string GUID = "com.denis.apocalypter.gunplayhud", NAME = "Gunplay HUD", VERSION = "1.2.2";
         internal static ManualLogSource Log;
         internal static string Dir;
         internal static ConfigEntry<bool> HudEnabled, HitMarker, SelectionDot, HeadshotSound;

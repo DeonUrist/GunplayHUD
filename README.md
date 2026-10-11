@@ -14,6 +14,10 @@ dotnet build GunplayHUD.csproj -c Release
 
 Alternatively pass `-p:GameDir="<installed game directory>"`. The build does not deploy. Copy `bin/Release/GunplayHUD.dll` **and its Textures and Sounds folders** into `BepInEx/plugins/GunplayHUD/`. From the release ZIP, copy the complete GunplayHUD folder there. Replace the previous DLL rather than installing a second copy. The alternative `build.sh` compiles only the DLL; copy the repository's Textures and Sounds folders alongside its output yourself.
 
+Version 1.2.2 restores the textures and headshot sound omitted from the 1.2.1 release ZIP. Install the entire GunplayHUD folder to receive both crosshair images and the MP3.
+
+Create release ZIPs with `./package.ps1 -GameDir "<installed game directory>"`. This builds Release, includes the DLL, README, both textures and headshot sound, and verifies the archived files against their sources. The default ZIP destination is `../_releases`; use `-OutputDirectory` to choose another folder.
+
 ## Settings and integration
 
 Version 1.2.0 halves the weapon dot's displayed width and height (Crosshair=3). Headshot sound has 1.3x sample amplitude, with peaks limited to the valid audio range. Original assets, selection dot and other crosshair modes are unchanged.
